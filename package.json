@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.7",
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.44",
+        "lodash": "^4.17.21",
+        "postcss": "^8.4.14",
+        "prettier": "2.7.1",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.52.2",
+        "sass-loader": "^12.6.0",
+        "tailwindcss": "^3.0.24"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^35.1.0",
+        "@ckeditor/ckeditor5-vue": "^4.0.1",
+        "@formkit/vue": "^1.0.0-beta.8",
+        "@vuepic/vue-datepicker": "^3.6.5",
+        "japan-postal-code": "^0.2.0",
+        "moment": "2.29.1",
+        "universal-cookie": "^4.0.4",
+        "vee-validate": "^4.6.6",
+        "vue": "^3.2.36",
+        "vue-i18n": "^9.2.0-beta.36",
+        "vue-loader": "^17.0.0",
+        "vue-router": "^4.0.13",
+        "vue-spinner": "^1.0.4",
+        "vue-toast-notification": "^3.0.4",
+        "vue3-datepicker": "^0.3.4",
+        "vuedraggable": "^4.1.0",
+        "vuex": "^4.0.2",
+        "yup": "^0.32.11"
+    }
+}

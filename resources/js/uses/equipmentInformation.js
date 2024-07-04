@@ -1,0 +1,758 @@
+import {
+    OPTIONS_SMOKING,
+    OPTIONS_RECEIPT_CORRESPONDENCE,
+    OPTIONS_WIFI,
+    OPTION_AUDIO_SPEAKER,
+    OPTIONS_MONITOR,
+    OPTIONS_TOILET,
+    OPTIONS_ELECTRIC,
+    OPTIONS_GLASS_COMMON,
+    OPTIONS_STOVE,
+} from "@/const";
+import { useI18n } from "vue-i18n";
+import { reactive } from "vue";
+
+export default function () {
+    const { t } = useI18n();
+
+    const listFormBasicInformation = [
+        {
+            label: t("equipment_information_components.bringing_in_food_and_drink"),
+            isRequired: false,
+            type: "checkbox",
+            name: "bringing_in_food_and_drink",
+            labelCheckbox: t("common.yes"),
+        },
+        {
+            label: t("equipment_information_components.smoking"),
+            isRequired: false,
+            type: "radio",
+            name: "smoking",
+            options: OPTIONS_SMOKING,
+        },
+        {
+            label: t("equipment_information_components.parking"),
+            isRequired: false,
+            type: "checkbox",
+            name: "parking",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.number_of_parking"),
+            isRequired: false,
+            type: "text",
+            name: "number_of_parking_lot",
+            labelInput: t("common.stand"),
+        },
+        {
+            label: t("equipment_information_components.nearby_paid_parking"),
+            isRequired: false,
+            type: "checkbox",
+            name: "neighborhood_pay_parking",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.distance_to_paid"),
+            isRequired: false,
+            type: "text",
+            name: "distance_to_paid_parking",
+            labelInput: t("common.minutes"),
+        },
+        {
+            label: t("equipment_information_components.flow_to_use"),
+            isRequired: false,
+            type: "textarea",
+            name: "flow_to_use",
+        },
+        {
+            label: t("equipment_information_components.luggage_storage_support"),
+            isRequired: false,
+            type: "checkbox",
+            name: "luggage_storage_support",
+            labelCheckbox: t("common.yes"),
+        },
+        {
+            label: t("equipment_information_components.takkyubin_receipt_correspondence"),
+            isRequired: false,
+            type: "radio",
+            name: "takkyubin_receipt_correspondence",
+            options: OPTIONS_RECEIPT_CORRESPONDENCE,
+        },
+        {
+            label: t("equipment_information_components.number_of_tables"),
+            isRequired: false,
+            type: "text",
+            name: "number_of_table",
+            labelInput: t("common.stand"),
+        },
+        {
+            label: t("equipment_information_components.number_of_chairs"),
+            isRequired: false,
+            type: "text",
+            name: "number_of_chairs",
+            labelInput: t("equipment_information_components.leg"),
+        },
+        {
+            label: t("equipment_information_components.number_of_sofa_seats"),
+            isRequired: false,
+            type: "text",
+            name: "number_of_sofa_seat",
+            labelInput: t("equipment_information_components.seat"),
+        },
+        {
+            label: t("equipment_information_components.preview_support"),
+            isRequired: false,
+            type: "checkbox",
+            name: "preview_support",
+            labelCheckbox: t("common.yes"),
+        },
+        {
+            label: t("equipment_information_components.commercial_use"),
+            isRequired: false,
+            type: "checkbox",
+            name: "commercial_use",
+            labelCheckbox: t("common.yes"),
+        },
+        {
+            label: t("equipment_information_components.pets"),
+            isRequired: false,
+            type: "checkbox",
+            name: "accompanied_by_pet",
+            labelCheckbox: t("common.yes"),
+        },
+        {
+            label: t("equipment_information_components.staff_resident"),
+            isRequired: false,
+            type: "checkbox",
+            name: "staff_resident",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.affiliated_restaurants"),
+            isRequired: false,
+            type: "checkbox",
+            name: "affiliated_restaurant",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.affiliated_parking_lot"),
+            isRequired: false,
+            type: "checkbox",
+            name: "affiliated_parking_lot",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.barrier_free"),
+            isRequired: false,
+            type: "checkbox",
+            name: "barrier_free",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.peripheral_convenience_store"),
+            isRequired: false,
+            type: "checkbox",
+            name: "peripheral_convenience_store",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.distance_to_convenience_store"),
+            isRequired: false,
+            type: "text",
+            name: "distance_to_convenience_store",
+            labelInput: t("common.minutes"),
+        },
+        {
+            label: t("equipment_information_components.surrounding_supermarket"),
+            isRequired: false,
+            type: "checkbox",
+            name: "surrounding_supermarket",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.distance_to_supermarket"),
+            isRequired: false,
+            type: "text",
+            name: "distance_to_supermarket",
+            labelInput: t("common.minutes"),
+        },
+        {
+            label: t("equipment_information_components.beverage_vending_machine"),
+            isRequired: false,
+            type: "checkbox",
+            name: "beverage_vending_machine",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.tobacco_vending_machine"),
+            isRequired: false,
+            type: "checkbox",
+            name: "tobacco_vending_machine",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.other"),
+            isRequired: false,
+            type: "textarea",
+            name: "other",
+        },
+    ];
+    const listFormGeneralEquipment = [
+        {
+            label: t("equipment_information_components.wifi"),
+            isRequired: true,
+            type: "radio",
+            name: "wifi",
+            options: OPTIONS_WIFI,
+        },
+        {
+            label: t("equipment_information_components.audio_speaker"),
+            isRequired: true,
+            type: "radio",
+            name: "audio_speaker",
+            options: OPTION_AUDIO_SPEAKER,
+        },
+        {
+            label: t("equipment_information_components.monitor"),
+            isRequired: true,
+            type: "radio",
+            name: "monitor",
+            options: OPTIONS_MONITOR,
+        },
+        {
+            label: t("equipment_information_components.toilet"),
+            isRequired: true,
+            type: "radio",
+            name: "toilet",
+            options: OPTIONS_TOILET,
+        },
+        {
+            label: t("equipment_information_components.kitchen"),
+            isRequired: false,
+            type: "checkbox",
+            name: "kitchen",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.refrigerator"),
+            isRequired: false,
+            type: "checkbox",
+            name: "refrigerator",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.freezer"),
+            isRequired: false,
+            type: "checkbox",
+            name: "freezer",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.ice_machine"),
+            isRequired: false,
+            type: "checkbox",
+            name: "ice_machine",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.air_conditioner"),
+            isRequired: false,
+            type: "checkbox",
+            name: "air_conditioner",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.elevator"),
+            isRequired: false,
+            type: "checkbox",
+            name: "elevator",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.tvSet"),
+            isRequired: false,
+            type: "checkbox",
+            name: "tvSet",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.sound_proofing_equipment"),
+            isRequired: false,
+            type: "checkbox",
+            name: "sound_proofing_equipment",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.karaoke"),
+            isRequired: false,
+            type: "checkbox",
+            name: "karaoke",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.microphone"),
+            isRequired: false,
+            type: "checkbox",
+            name: "microphone",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.DVDPlayer"),
+            isRequired: false,
+            type: "checkbox",
+            name: "DVDPlayer",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.projector"),
+            isRequired: false,
+            type: "checkbox",
+            name: "projector",
+            labelCheckbox: t("common.can_be"),
+        },
+    ];
+    const listFormConferenceEquipment = [
+        {
+            label: t("equipment_information_components.whiteboard"),
+            isRequired: false,
+            type: "checkbox",
+            name: "whiteboard",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.copier_or_multifunction_machine"),
+            isRequired: false,
+            type: "checkbox",
+            name: "copier_or_multifunction_machine",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.moderator"),
+            isRequired: false,
+            type: "checkbox",
+            name: "moderator",
+            labelCheckbox: t("common.can_be"),
+        },
+    ];
+    const listFormShootingEquipment = [
+        {
+            label: t("equipment_information_components.waiting_room_or_makeup_room"),
+            isRequired: false,
+            type: "checkbox",
+            name: "waiting_room_or_makeup_room",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.lighting_spotlight"),
+            isRequired: false,
+            type: "checkbox",
+            name: "lighting_spotlight",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.terrace"),
+            isRequired: false,
+            type: "checkbox",
+            name: "terrace",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.pool"),
+            isRequired: false,
+            type: "checkbox",
+            name: "pool",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.electric_capacity_type"),
+            isRequired: false,
+            type: "radio",
+            name: "electric_capacity_type",
+            options: OPTIONS_ELECTRIC,
+        },
+        {
+            label: t("equipment_information_components.electric_capacity"),
+            isRequired: false,
+            type: "text",
+            name: "electric_capacity",
+        },
+        {
+            label: t("equipment_information_components.large_parking_lot"),
+            isRequired: false,
+            type: "checkbox",
+            name: "large_parking_lot",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.tripod"),
+            isRequired: false,
+            type: "checkbox",
+            name: "tripod",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.reflector"),
+            isRequired: false,
+            type: "checkbox",
+            name: "reflector",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.ancillary_services"),
+            isRequired: false,
+            type: "checkbox",
+            name: "ancillary_services",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.bird_eye_view_shooting"),
+            isRequired: false,
+            type: "checkbox",
+            name: "bird_eye_view_shooting",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.white_horizont"),
+            isRequired: false,
+            type: "checkbox",
+            name: "white_horizont",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.r_horizont"),
+            isRequired: false,
+            type: "checkbox",
+            name: "r_horizont",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.bullback_shooting"),
+            isRequired: false,
+            type: "checkbox",
+            name: "bullback_shooting",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.rooftop"),
+            isRequired: false,
+            type: "checkbox",
+            name: "rooftop",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.veranda"),
+            isRequired: false,
+            type: "checkbox",
+            name: "veranda",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.balcony"),
+            isRequired: false,
+            type: "checkbox",
+            name: "balcony",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.japanese_style_room"),
+            isRequired: false,
+            type: "checkbox",
+            name: "japanese_style_room",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.hearth"),
+            isRequired: false,
+            type: "checkbox",
+            name: "hearth",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.atrium"),
+            isRequired: false,
+            type: "checkbox",
+            name: "atrium",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.spiral_staircase"),
+            isRequired: false,
+            type: "checkbox",
+            name: "spiral_staircase",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.bathtub"),
+            isRequired: false,
+            type: "checkbox",
+            name: "bathtub",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.garden_or_lawn"),
+            isRequired: false,
+            type: "checkbox",
+            name: "garden_or_lawn",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.bar_counter"),
+            isRequired: false,
+            type: "checkbox",
+            name: "bar_counter",
+            labelCheckbox: t("common.can_be"),
+        },
+    ];
+    const listFormEventEquipment = [
+        {
+            label: t("equipment_information_components.stage"),
+            isRequired: false,
+            type: "checkbox",
+            name: "stage",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.fullLength_mirror"),
+            isRequired: false,
+            type: "checkbox",
+            name: "fullLength_mirror",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.shower_room"),
+            isRequired: false,
+            type: "checkbox",
+            name: "shower_room",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.piano"),
+            isRequired: false,
+            type: "checkbox",
+            name: "piano",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.drum_set"),
+            isRequired: false,
+            type: "checkbox",
+            name: "drum_set",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.dj_booth"),
+            isRequired: false,
+            type: "checkbox",
+            name: "dj_booth",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.wall_mirrored"),
+            isRequired: false,
+            type: "checkbox",
+            name: "wall_mirrored",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.yoga_mat"),
+            isRequired: false,
+            type: "checkbox",
+            name: "yoga_mat",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.rental_shoes"),
+            isRequired: false,
+            type: "checkbox",
+            name: "rental_shoes",
+            labelCheckbox: t("common.can_be"),
+        },
+    ];
+    const listFormShare = [
+        {
+            label: t("equipment_information_components.treatment_table"),
+            isRequired: false,
+            type: "checkbox",
+            name: "treatmentTable",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.water_server"),
+            isRequired: false,
+            type: "checkbox",
+            name: "waterServer",
+            labelCheckbox: t("common.can_be"),
+        },
+    ];
+    const listFromPartyEquipment = [
+        {
+            label: t("equipment_information_components.part_game"),
+            isRequired: false,
+            type: "textarea",
+            name: "part_game",
+        },
+        {
+            label: t("equipment_information_components.plate"),
+            isRequired: false,
+            type: "radio",
+            name: "plate",
+            options: OPTIONS_GLASS_COMMON,
+        },
+        {
+            label: t("equipment_information_components.glass"),
+            isRequired: false,
+            type: "radio",
+            name: "glass",
+            options: OPTIONS_GLASS_COMMON,
+        },
+        {
+            label: t("equipment_information_components.chopsticks"),
+            isRequired: false,
+            type: "radio",
+            name: "chopsticks",
+            options: OPTIONS_GLASS_COMMON,
+        },
+        {
+            label: t("equipment_information_components.cutlery"),
+            isRequired: false,
+            type: "radio",
+            name: "cutlery",
+            options: OPTIONS_GLASS_COMMON,
+        },
+        {
+            label: t("equipment_information_components.stove"),
+            isRequired: false,
+            type: "radio",
+            name: "stove",
+            options: OPTIONS_STOVE,
+        },
+        {
+            label: t("equipment_information_components.kitchen_knife"),
+            isRequired: false,
+            type: "checkbox",
+            name: "kitchen_knife",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.pot"),
+            isRequired: false,
+            type: "checkbox",
+            name: "pot",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.frying_pan"),
+            isRequired: false,
+            type: "checkbox",
+            name: "frying_pan",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.grilled_fish"),
+            isRequired: false,
+            type: "checkbox",
+            name: "grilled_fish",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.microwave"),
+            isRequired: false,
+            type: "checkbox",
+            name: "microwave",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.oven"),
+            isRequired: false,
+            type: "checkbox",
+            name: "oven",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.rice_cooker"),
+            isRequired: false,
+            type: "checkbox",
+            name: "rice_cooker",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.coffee_maker"),
+            isRequired: false,
+            type: "checkbox",
+            name: "coffee_maker",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.toaster"),
+            isRequired: false,
+            type: "checkbox",
+            name: "toaster",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.wine_cellar"),
+            isRequired: false,
+            type: "checkbox",
+            name: "wine_cellar",
+            labelCheckbox: t("common.can_be"),
+        },
+        {
+            label: t("equipment_information_components.bbq_stove"),
+            isRequired: false,
+            type: "checkbox",
+            name: "bbq_stove",
+            labelCheckbox: t("common.can_be"),
+        },
+    ];
+
+    const convertData = (listData) =>
+        listData.reduce((pre, cur) => {
+            if (cur.type === "checkbox") {
+                return { ...pre, [cur.name]: false };
+            }
+            if (cur.type === "radio") {
+                return { ...pre, [cur.name]: cur.options[0].value };
+            }
+            return { ...pre, [cur.name]: null };
+        }, {});
+
+    const formDataBasicInfo = reactive({
+        ...convertData(listFormBasicInformation),
+    });
+    const formDataGeneralEquipment = reactive({
+        ...convertData(listFormGeneralEquipment),
+    });
+    const formDataConferenceEquipment = reactive({
+        ...convertData(listFormConferenceEquipment),
+    });
+    const formDataShootingEquipment = reactive({
+        ...convertData(listFormShootingEquipment),
+    });
+    const formDataEventEquipment = reactive({
+        ...convertData(listFormEventEquipment),
+    });
+    const formDataShare = reactive({
+        ...convertData(listFormShare),
+    });
+    const formDataPartyEquipment = reactive({
+        ...convertData(listFromPartyEquipment),
+    });
+
+    return {
+        listFormBasicInformation,
+        listFormGeneralEquipment,
+        listFormConferenceEquipment,
+        listFormShootingEquipment,
+        listFormEventEquipment,
+        listFromPartyEquipment,
+        listFormShare,
+
+        formDataBasicInfo,
+        formDataGeneralEquipment,
+        formDataConferenceEquipment,
+        formDataShootingEquipment,
+        formDataEventEquipment,
+        formDataShare,
+        formDataPartyEquipment,
+    };
+}

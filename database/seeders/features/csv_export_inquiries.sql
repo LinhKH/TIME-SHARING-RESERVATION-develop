@@ -1,0 +1,17 @@
+INSERT INTO `csv_export` (`target`, `field`, `item_order`, `shown`)
+VALUES ('inquiries', '問合せID', 1, 1),
+       ('inquiries', '日時', 2, 1),
+       ('inquiries', 'お客様ID', 3, 1),
+       ('inquiries', 'お名前', 4, 1),
+       ('inquiries', 'メールアドレス', 5, 1),
+       ('inquiries', '性別', 6, 1),
+       ('inquiries', '会社名', 7, 1),
+       ('inquiries', '電話番号', 8, 1),
+       ('inquiries', '初回問合せ対応', 9, 1),
+       ('inquiries', '最終問合せ・返信', 10, 1),
+       ('inquiries', '問合せ対応完了', 11, 1),
+       ('inquiries', '問合せスペース名', 12, 1),
+       ('inquiries', 'スペースID', 13, 1),
+       ('inquiries', 'お問合せ内容', 14, 1),
+       ('inquiries', '運営会社・団体名', 15, 1),
+       ('inquiries', 'オーナーID', 16, 1);

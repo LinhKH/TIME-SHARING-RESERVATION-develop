@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class TransportationRouteStations extends Model
+{
+    use HasFactory;
+
+    protected $table = 'transportation_route_stations';
+    protected $fillable = [
+        'id',
+        'optimized',
+        'route_id',
+        'station_id',
+        'type'
+    ];
+
+    /**
+     * RelationShip TransportationStation
+     *
+     * @return BelongsTo
+     */
+    public function transportationStation(): BelongsTo
+    {
+        return $this->belongsTo(TransportationStation::class, 'station_id');
+
+    }
+
+    /**
+     * RelationShip TransportationRoute
+     *
+     * @return BelongsTo
+     */
+    public function transportationRoute(): BelongsTo
+    {
+        return $this->belongsTo(TransportationRoute::class, 'route_id');
+
+    }
+}

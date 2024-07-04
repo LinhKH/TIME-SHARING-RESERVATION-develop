@@ -1,0 +1,32 @@
+* {
+  color: #333;
+}
+::selection {
+  color: #333;
+  background-color: yellow;
+}
+.v-toast__text {
+  color: #fff;
+}
+button:active {
+  opacity: 0.6;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+}
+.flag.en {
+  background-image: url(../images/en_US.png);
+  width: 15px;
+  height: 10px;
+}
+.flag.ja {
+  background-image: url(../images/japan.png);
+  width: 20px;
+  height: 16px;
+}
+.flag.en,
+.flag.ja {
+  display: inline-block;
+  background-size: cover;
+}

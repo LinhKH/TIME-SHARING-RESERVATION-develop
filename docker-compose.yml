@@ -1,0 +1,59 @@
+version: '3'
+services:
+    timeshare_reservation_db:
+        image: mysql:8.0
+        container_name: timeshare_reservation_db
+        ports:
+            - "3322:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+        volumes:
+            - ./docker/app/mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+            - db_data:/var/lib/mysql
+        restart: always
+    timeshare_reservation_app:
+        build: ./docker/app
+        container_name: timeshare_reservation_app
+        volumes:
+            - ./:/var/www/html
+            - ./docker/app/hosts:/etc/apache2/sites-enabled
+            - ./docker/app/php/php.ini:/usr/local/etc/php/php.ini
+            - ./docker/app/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+        ports:
+            - "8032:80"
+            - "1443:443"
+        depends_on:
+            - timeshare_reservation_db
+        restart: always
+    mailhog:
+        image: mailhog/mailhog:latest
+        container_name: mailhog
+        ports:
+            - "8325:8025"
+            - "1325:1025"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: timeshare_reservation_phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=advalservicesystemadevrds.cadn74tksgey.ap-northeast-1.rds.amazonaws.com
+            - PMA_USER=admin
+            - PMA_PASSWORD=9SohljqlVCYG2240uuhY
+        # links:
+        # - timeshare_reservation_db
+        # depends_on:
+        # - timeshare_reservation_db
+        ports:
+            - 8033:80
+        volumes:
+            - pma_sessions:/sessions
+        networks:
+            tsr:
+
+        
+volumes:
+    db_data:
+    pma_sessions:
+
+networks:
+    tsr:

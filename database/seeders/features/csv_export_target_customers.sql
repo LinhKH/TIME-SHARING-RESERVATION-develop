@@ -1,0 +1,18 @@
+INSERT INTO `csv_export` (`target`, `field`, `item_order`, `shown`)
+VALUES ('customers', 'メールアドレス', 1, 1),
+       ('customers', 'ID', 2, 1),
+       ('customers', '名前', 3, 1),
+       ('customers', '名前（カナ）', 4, 1),
+       ('customers', 'ニックネーム', 5, 1),
+       ('customers', '電話番号', 6, 1),
+       ('customers', '住所', 7, 1),
+       ('customers', '会員タイプ', 8, 1),
+       ('customers', '性別', 9, 1),
+       ('customers', '生年月日', 10, 1),
+       ('customers', '会員登録日', 11, 1),
+       ('customers', 'メールマガジン', 12, 1),
+       ('customers', 'ステータス', 13, 1),
+       ('customers', '口コミ数', 14, 1),
+       ('customers', '会社名', 15, 1),
+       ('customers', '会社名 (カナ)', 16, 1),
+       ('customers', '合計', 17, 1);
