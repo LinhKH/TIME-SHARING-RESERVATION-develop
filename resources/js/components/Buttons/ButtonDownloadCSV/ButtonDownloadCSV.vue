@@ -1,23 +1,23 @@
 <template>
-  <div class="border border-[#dbdbdb] border-solid rounded h-full px-2 cursor-pointer" @click="$emit('onExportFile')">
-    <i class="fa fa-file mr-1" aria-hidden="true"></i>
-    <span class="leading-8">
-      {{ $t("list_user_manage_page.csv_download_list") }}
-    </span>
-  </div>
+    <div class="border border-[#dbdbdb] border-solid rounded h-full px-2 cursor-pointer" @click="$emit('onExportFile')">
+        <i class="fa fa-file mr-1" aria-hidden="true"></i>
+        <span class="leading-8">
+            {{ $t("list_user_manage_page.csv_download_list") }}
+        </span>
+    </div>
 </template>
 
 <script>
 export default {
-  name: "ButtonDownloadCSV",
+    name: "ButtonDownloadCSV",
 
-  data() {
-    return {};
-  },
+    data() {
+        return {};
+    },
 
-  mounted() {},
+    mounted() { },
 
-  methods: {},
+    methods: {},
 };
 </script>
 

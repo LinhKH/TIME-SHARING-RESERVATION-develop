@@ -7,7 +7,7 @@
         <!-- *********** -->
         <div class="flex h-8 justify-between mt-1">
             <ButtonFilter @clickBtn="handleClickSortFn" />
-            <ButtonDownloadCSV />
+            <ButtonDownloadCSV @onExportFile="handleExportFile"/>
         </div>
         <!-- *********** -->
 
@@ -162,7 +162,8 @@
                     </div>
                 </div>
             </FormKit>
-            <button @click="getListUserManagerAndSetPage(true)" class="px-2 py-1 rounded hover:bg-[rgba(0,0,0,.06)] border mt-3">
+            <button @click="getListUserManagerAndSetPage(true)"
+                class="px-2 py-1 rounded hover:bg-[rgba(0,0,0,.06)] border mt-3">
                 <i class="fa fa-search mr-2" aria-hidden="true"></i>
                 <span class="">
                     {{ $t("list_user_manage_page.search") }}
@@ -232,8 +233,6 @@
             </table>
         </div>
 
-        <!-- <Pagination v-if="pagination" :pageCurrent="pagination.current_page" :totalPage="pagination.total"
-            @onBack="handleBackPage" @onNext="handleNextPage" /> -->
         <Pagination v-if="pagination" :pageCurrent="pagination.current_page" :totalPage="pagination.total"
             @onBack="handleBackPage" @onNext="handleNextPage" :isShowNext="isShowNext" :isShowPrev="isShowPrev" />
     </div>
@@ -288,8 +287,50 @@ export default {
         const handleClickSortFn = () => {
             isShowSort.value = !isShowSort.value;
         };
+
+        const handleExportFile = () => {
+            const download = function (data) {
+                const blob = new Blob([data], { type: "text/csv;" });
+
+                const url = window.URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+
+                a.setAttribute("href", url);
+
+                a.setAttribute("download", "ts_users_admin.csv");
+
+                a.click();
+            };
+
+            const csvMaker = function (listUserManage) {
+                const header =
+                    "ID,メールアドレス,名前,ユーザー種別";
+                const listUserManageConvert = listUserManage
+                    .map(
+                        (item) =>
+                            `${item.user_id},${item.user_email},${item.user_name},${convertUserType(
+                                item.user_type
+                            )}`
+                    )
+                    .join("\n");
+                return `${header}\n${listUserManageConvert}`;
+            };
+
+            const get = async function () {
+                const csvData = csvMaker(listUserManage.value);
+                download(csvData);
+            };
+
+            get.bind()();
+        };
+
         const handleAddUserManage = () => {
             router.push(`${ROUTER_PATH.USER_MANAGER}/${ROUTER_PATH.ADD}`);
+        };
+
+        const convertUserType = (value) => {
+            return value ? t(`list_user_manage_page.${value}`) : "";
         };
 
         const getListUserManagerAndSetPage = (isSearch) => {
@@ -391,7 +432,9 @@ export default {
             endDatePicker,
             isShowNext,
             isShowPrev,
-            getListUserManagerAndSetPage
+            convertUserType,
+            getListUserManagerAndSetPage,
+            handleExportFile
         };
     },
 };

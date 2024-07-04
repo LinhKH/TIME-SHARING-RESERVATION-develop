@@ -187,6 +187,7 @@
         "registered_date": "登録日時",
         "last_login_date": "最終ログイン日",
         "organization": "管理スタッフ",
+        "organization-member": "管理スタッフ",
         "admin": "マスター"
     },
     "form_user_manage": {

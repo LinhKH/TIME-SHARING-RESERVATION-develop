@@ -41,19 +41,19 @@ class SystemConfigRepository implements ISystemConfigRepository
         foreach ($systemConfigEavs as $item) {
             $dataEav[$item['attribute']] = $item['value'];
         }
-
+        
         $rangeTimeMonday = unserialize($dataEav['conciergeWorkingTimesConfiguration__monday_times']);
         $monday = new SettingTimeRange(
             (empty($rangeTimeMonday['start'])) ? null : new DateTime($rangeTimeMonday['start']),
             (empty($rangeTimeMonday['end'])) ? null : new DateTime($rangeTimeMonday['end'])
         );
-
+        
         $rangeTimeTuesday = unserialize($dataEav['conciergeWorkingTimesConfiguration__tuesday_times']);
         $tuesday = new SettingTimeRange(
             (empty($rangeTimeTuesday['start'])) ? null : new DateTime($rangeTimeTuesday['start']),
             (empty($rangeTimeTuesday['end'])) ? null : new DateTime($rangeTimeTuesday['end'])
         );
-
+        
         $rangeTimeWednesday = unserialize($dataEav['conciergeWorkingTimesConfiguration__wednesday_times']);
         $wednesday = new SettingTimeRange(
             (empty($rangeTimeWednesday['start'])) ? null : new DateTime($rangeTimeWednesday['start']),

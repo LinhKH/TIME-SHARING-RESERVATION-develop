@@ -97,7 +97,7 @@ export default {
                     id: 10,
                     title: this.$t("side_bar_components.user"),
                     link: `${ROUTER_PATH.ADMIN}/${ROUTER_PATH.LIST_CUSTOMER}`,
-                    icon: "fa fa-lg fa-user",
+                    icon: "fa fa-lg fa-users",
                 },
                 {
                     id: 13,
@@ -105,18 +105,18 @@ export default {
                     link: `${ROUTER_PATH.ADMIN}/${ROUTER_PATH.USER_MANAGER}`,
                     icon: "fa fa-lg fa-user",
                 },
-                {
-                    id: 14,
-                    title: this.$t("side_bar_components.company_organization"),
-                    link: `/test`,
-                    icon: "fa fa-lg fa-star",
-                },
-                {
-                    id: 15,
-                    title: this.$t("side_bar_components.withdrawal"),
-                    link: "/home",
-                    icon: "fa fa-lg fa-inbox",
-                },
+                // {
+                //     id: 14,
+                //     title: this.$t("side_bar_components.company_organization"),
+                //     link: `/test`,
+                //     icon: "fa fa-lg fa-star",
+                // },
+                // {
+                //     id: 15,
+                //     title: this.$t("side_bar_components.withdrawal"),
+                //     link: "/home",
+                //     icon: "fa fa-lg fa-inbox",
+                // },
                 {
                     id: 16,
                     title: this.$t("side_bar_components.manage_settings"),
