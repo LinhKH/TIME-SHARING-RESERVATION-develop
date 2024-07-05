@@ -9,13 +9,13 @@
                 <thead>
                     <tr>
                         <th class="border border-solid border-black border-collapse p-2.5 text-center min-w-[160px]"
-                            v-for="(tourHeader, index) in tourHeaders" scope="col" :key="index">
+                            v-for="(tourHeader, index) in dataTable" scope="col" :key="index">
                             {{ tourHeader }}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(tourItem, index) in listTours" :key="index" class="odd:bg-[#fffaf4]">
+                    <tr v-for="(tourItem, index) in dataPageList" :key="index" class="odd:bg-[#fffaf4]">
                         <th class="border border-solid border-black border-collapse p-2.5 text-center min-w-[160px]"
                             scope="row">
                             <router-link :to="{ name: 'TourDetail', params: { id: tourItem.id } }">
@@ -128,21 +128,18 @@
                     </tr>
                 </tbody>
             </table>
-            <Pagination v-if="pagination" :pageCurrent="pagination.current_page" :totalPage="pagination.total_page"
-                @onBack="handleBackPage" @onNext="handleNextPage" />
         </div>
     </div>
 </template>
 <script>
 import { useStore } from "vuex";
-import { useI18n } from "vue-i18n";
-import { getAllListTourApi } from "@/api";
 import ChoiceDateVue from "./ChoiceDate.vue";
 import { useRouter, useRoute } from "vue-router";
-import { ref, computed, watch, inject } from "vue";
+import { ref } from "vue";
 import Pagination from "@/components/Pagination";
 import choiceDateConfirm from "./choiceDateConfirm.vue";
-import { ROUTER_PATH, MODULE_STORE, PAGE_DEFAULT, BOOLEAN } from "@/const";
+import { ROUTER_PATH, BOOLEAN } from "@/const";
+import { onMounted } from "vue";
 
 export default {
     name: "TableAccess",
@@ -152,66 +149,30 @@ export default {
         choiceDateConfirm,
     },
     props: {
-        isShowSuccess: Boolean,
-        checkDate: String,
+        // isShowSuccess: Boolean,
+        // checkDate: String,
+        dataTable: { type: Array, default: [] },
+        dataPageList: { type: Array, default: [] },
     },
     setup(props, { emit }) {
         const dates = ref([]);
         const store = useStore();
-        const { t } = useI18n();
-        const route = useRoute();
         const listTours = ref([]);
         const pagination = ref(null);
-        const toast = inject("$toast");
         const router = useRouter();
         const tour_date = ref();
         const isValueDate = ref(false);
-        const tourHeaders = [
-            t("tour_manager.id_tour"),
-            t("tour_manager.user_visit"),
-            t("tour_manager.space_name"),
-            t("tour_manager.space_content"),
-            t("tour_manager.status"),
-            t("tour_manager.action"),
-            t("tour_manager.time_entry"),
-        ];
-        const pageCurrent = computed(() => {
-            if (!route.query.page) {
-                return PAGE_DEFAULT || 1;
-            }
-            return Number(route.query.page);
-        });
-        watch(pageCurrent, (page) => {
-            if (route.path !== ROUTER_PATH.TOUR) {
-                getAllListTour(page);
-            }
-        });
+
         const replaceStatus = (stringValue) => {
             return stringValue.replace(/_/g, " ");
         };
-        const getAllListTour = async (page = PAGE_DEFAULT) => {
-            try {
-                store.state[MODULE_STORE.COMMON.NAME].isLoadingPage = true;
-                const res = await getAllListTourApi(page);
-                listTours.value = res.data;
-                pagination.value = res.pagination;
-            } catch (errors) {
-                const error = errors.message || t("common.has_error");
-                toast.error(error);
-            } finally {
-                store.state[MODULE_STORE.COMMON.NAME].isLoadingPage = false;
-            }
-        };
-        const handleBackPage = (page) => {
-            router.push(`${ROUTER_PATH.TOUR}?page=${page}`);
-        };
-        const handleNextPage = (page) => {
-            router.push(`${ROUTER_PATH.TOUR}?page=${page}`);
-        };
+
+        onMounted(() => {
+            console.log(props.dataPageList);
+        });
         const approvalConfirm = (item) => {
             listTours.value.forEach((el) => {
                 if (el.id === item.id) {
-
                     if (el.tourDate) {
                         isValueDate.value = false;
                         store.commit(`tour/setTourDetailItem`, item);
@@ -226,7 +187,7 @@ export default {
             store.commit(`tour/setTourDetailItem`, item);
             router.push(`${ROUTER_PATH.ADMIN}/${ROUTER_PATH.TOUR}/${ROUTER_PATH.NON_APPROVAL_CONFIRM_TOUR}`);
         };
-        getAllListTour(pageCurrent);
+
         const handleChangeDate = (date) => {
             tour_date.value = date;
         };
@@ -241,15 +202,10 @@ export default {
             });
         };
         return {
-            tourHeaders,
             listTours,
             pagination,
             dates,
-            pageCurrent,
-            handleBackPage,
-            handleNextPage,
             handleChangeDate,
-            getAllListTour,
             approvalConfirm,
             alternativeCalender,
             tour_date,
@@ -257,7 +213,7 @@ export default {
             BOOLEAN,
             replaceStatus,
             confirmChoiceDate,
-            isValueDate,
+            isValueDate
         };
     },
 };

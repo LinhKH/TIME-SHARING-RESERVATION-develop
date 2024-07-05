@@ -139,10 +139,6 @@
             </div>
         </div>
         <div class="mt-[10px]">
-            <!-- <div class="text-[18px] text-center p-[15px] font-extrabold bg-[#ececec]">
-        {{ $t("tour_detail.message_history") }}
-      </div>
-      <p class="mt-[5px]">{{ $t("tour_detail.noti") }}</p> -->
             <div class="inquiries-detail-message-history">
                 <h2 class="mt-4 text-[18px] text-center p-[15px] font-extrabold bg-[#ececec]">
                     {{ $t("tour_detail.message_history") }}

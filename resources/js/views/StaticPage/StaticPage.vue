@@ -2,7 +2,7 @@
     <div class="flex justify-end hover:translate-y-0.5">
         <ButtonAddNew :text="$t('static_Page.text_button')" @clickBtn="goToCreateNew" />
     </div>
-    <StaticPageTable :dataTable="dataTable" :dataPageList="dataPageList" />
+    <StaticPageTable v-if="isDataLoaded" :dataTable="dataTable" :dataPageList="dataPageList" />
     <Pagination v-if="pagination" :pageCurrent="pagination.current_page" :totalPage="pagination.total_page"
         @onBack="handleBackPage" @onNext="handleNextPage" />
 </template>
@@ -27,6 +27,7 @@ export default {
         const store = useStore();
         const toast = inject("$toast");
         const pagination = ref(null);
+        const isDataLoaded = ref(false);
         const dataPageList = ref([]);
         const dataTable = {
             header: [
@@ -70,6 +71,7 @@ export default {
                 const res = await getListPageNewApi(page);
                 dataPageList.value = res.data;
                 pagination.value = res.pagination;
+                isDataLoaded.value = true;
             } catch (errors) {
                 const error = errors.message || t("common.has_error");
                 toast.error(error);
@@ -78,7 +80,7 @@ export default {
             }
         };
         getAllPageNew(pageCurrent);
-        return { dataTable, dataPageList, goToCreateNew, handleBackPage, handleNextPage, pagination };
+        return { dataTable, dataPageList, goToCreateNew, handleBackPage, handleNextPage, pagination, isDataLoaded };
     },
 };
 </script>
