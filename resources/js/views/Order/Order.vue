@@ -1,18 +1,18 @@
 <template>
-  <router-view />
+    <router-view />
 </template>
 
 <script>
 export default {
-  name: "Order",
+    name: "Order",
 
-  data() {
-    return {};
-  },
+    data() {
+        return {};
+    },
 
-  mounted() {},
+    mounted() { },
 
-  methods: {},
+    methods: {},
 };
 </script>
 

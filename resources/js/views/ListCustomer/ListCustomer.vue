@@ -293,7 +293,13 @@ export default {
             value2: "無効",
             value3: "未確認",
         };
-        const pageCurrent = ref(1);
+        const pageCurrent = computed(() => {
+            if (!route.query.page) {
+                return PAGE_DEFAULT;
+            }
+            return Number(route.query.page);
+        });
+
         const isShowNext = computed(() => pageCurrent.value < pagination.value.total);
         const isShowPrev = computed(() => pageCurrent.value > 1);
 
@@ -429,11 +435,12 @@ export default {
         watch(pageCurrent, (page) => {
             getListCustomer(true);
         });
-        const handleBackPage = () => {
-            if (pageCurrent.value > 1) pageCurrent.value -= 1;
+
+        const handleBackPage = (page) => {
+            router.push(`${ROUTER_PATH.LIST_CUSTOMER}?page=${page}`);
         };
-        const handleNextPage = () => {
-            if (pageCurrent.value < pagination.value.total) pageCurrent.value += 1;
+        const handleNextPage = (page) => {
+            router.push(`${ROUTER_PATH.LIST_CUSTOMER}?page=${page}`);
         };
         getListCustomer();
         function formatDate(date) {
@@ -474,6 +481,7 @@ export default {
             isShowNext,
             isShowPrev,
             getListCustomerAndSetPage,
+            PAGE_DEFAULT
         };
     },
 };

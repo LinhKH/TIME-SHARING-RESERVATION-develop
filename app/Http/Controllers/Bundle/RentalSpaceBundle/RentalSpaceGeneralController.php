@@ -103,17 +103,19 @@ class RentalSpaceGeneralController extends Controller
         $postRentalSpaceGeneralApplicationService = new RentalSpacePostGeneralApplicationService(
             $rentalSpaceGeneralRepository
         );
-
+        
         $generalBasicSpacePurposeOfUsesCommand = [];
         if (!empty($request->general_basic_space_purpose_of_uses)) {
             foreach ($request->general_basic_space_purpose_of_uses as $generalBasicSpacePurposeOfUseRequest) {
                 $generalBasicSpacePurposeOfUsesCommand[] = new RentalSpaceGeneralPurposeOfUseCommand(
                     $generalBasicSpacePurposeOfUseRequest['main_category'],
-                    $generalBasicSpacePurposeOfUseRequest['sub_category'],
+                    $generalBasicSpacePurposeOfUseRequest['sub_category']?? '',
                     $generalBasicSpacePurposeOfUseRequest['title_category'] ?? null
                 );
             }
         }
+        // dd($rentalSpaceGeneralRepository);
+        
 
         $generalSpaceInformationCancellationFeeRulesCommand = [];
         if (!empty($request->general_space_information_cancellation_fee_rules)) {
@@ -162,7 +164,7 @@ class RentalSpaceGeneralController extends Controller
         );
 
         $rentalSpace = $postRentalSpaceGeneralApplicationService->handle($command);
-
+        
         if (!empty($rentalSpace->rentalSpaceId)) {
             $rentalSpaceGeneralRepository->handleUpdateUserIdOnRentalSpace($rentalSpace->rentalSpaceId, auth()->user()->id);
         }

@@ -1,6 +1,8 @@
 <?php
 namespace App\Bundle\Common\Domain\Model;
 
+use Illuminate\Support\Facades\Log;
+
 class InvalidArgumentException extends DomainException
 {
     protected $errorCode = 100;
@@ -11,6 +13,7 @@ class InvalidArgumentException extends DomainException
      */
     public function __construct(string $message)
     {
+        Log::error($message);
         parent::__construct($message);
         $this->errorTitle = $message;
     }

@@ -24,6 +24,8 @@ final class RentalSpaceDraftStep
     public const PAGE_AND_EMAIL_MESSAGE = 8;
     /** @var int */
     public const APPROVE = 9;
+    /** @var int */
+    public const TEST = 10;
 
     /** @var array */
     private const VALUES = [
@@ -36,6 +38,7 @@ final class RentalSpaceDraftStep
         self::PLAN_CREATE_RESERVATION_FRAME => 'plan-create-reservation-frame',
         self::PAGE_AND_EMAIL_MESSAGE => 'page-and-email-message',
         self::APPROVE => 'approve',
+        self::TEST => 'test',
     ];
 
     /**
@@ -60,7 +63,7 @@ final class RentalSpaceDraftStep
             throw new InvalidArgumentException("[{$code}] RentalSpaceDraftStep.code 不正な値です。");
         }
 
-        $this->value = self::VALUES[$code];
+        $this->value = self::VALUES[$code] ?? 'test';
     }
     /**
      * @return int
@@ -110,6 +113,7 @@ final class RentalSpaceDraftStep
     public static function fromType(int $type): RentalSpaceDraftStep
     {
         if (!isset(self::VALUES[$type])) {
+            \Log::error("RentalSpaceDraftStep");
             throw new InvalidArgumentException("[{$type}] 不正な値です。");
         }
 

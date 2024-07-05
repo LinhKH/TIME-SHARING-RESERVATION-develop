@@ -48,9 +48,9 @@ class RentalSpaceGeneralRepository implements IRentalSpaceGeneralRepository
         }
 
         $entities = $entities->paginate(PaginationConst::PAGINATE_ROW);
-
         /** @var RentalSpace[] $result */
         $result = [];
+        // dd($entities);
         foreach ($entities as $entity) {
             $rentalSpaceEaves = $entity['rentalSpaceEav'];
             $organizations = $entity['organizations'];
@@ -73,12 +73,13 @@ class RentalSpaceGeneralRepository implements IRentalSpaceGeneralRepository
                 new RentalSpaceId($entity->id),
                 new OrganizationId($entity->organization_id),
                 new OrganizationInformation($organization_name, $organization_name_furigana),
-                $entity->status,
+                $entity->status ?? 'active',
                 $title,
                 RentalSpaceDraftStep::fromType($entity->draft_step)->getValue(),
                 $entity->tour_flg ?? null
             );
         }
+
 
         // paginate
         $pagination = new Pagination(
@@ -185,7 +186,6 @@ class RentalSpaceGeneralRepository implements IRentalSpaceGeneralRepository
         foreach ($entities as $entity) {
             $dataRentalSpaceEav[$entity['attribute']] =  $entity['value'];
         }
-        // dd((isset($dataRentalSpaceEav['generalBasicSpacePurposeOfUses'])) ? json_decode($dataRentalSpaceEav['generalBasicSpacePurposeOfUses'],true) : []);
 
         return new RentalSpaceGeneral(
             $space->organization_id,

@@ -138,9 +138,6 @@ export default {
                     const nameJa =
                         item.rental_space?.rental_space_eav?.find((item) => item.attribute == "generalBasicSpaceNameJa")?.value ||
                         "";
-                    // const nameKana = item.rental_space?.rental_space_eav?.find(
-                    //   (item) => item.attribute == "generalBasicSpaceNameKana"
-                    // ).value;
                     const spaceName = nameJa;
                     return [
                         {
