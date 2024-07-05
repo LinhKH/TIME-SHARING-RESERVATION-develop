@@ -113,11 +113,11 @@ class TourController extends Controller
             $organizationRepository,
             $customerRepository
         );
-        // dd($request->page);
+        
         $command = new TourListGetCommand(
             !empty($request['page']) ? (int)$request['page'] : 1
         );
-
+        
         $result = $applicationService->handle($command);
 
         $data = [];

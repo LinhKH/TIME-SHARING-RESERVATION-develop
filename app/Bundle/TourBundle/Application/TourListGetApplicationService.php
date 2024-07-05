@@ -62,9 +62,9 @@ final class TourListGetApplicationService
     {
         $tourPagination = new TourPagination($command->page);
         [$pagination, $tours] = $this->tourRepository->findAll($tourPagination);
-
+        
         $tourListGetResult = [];
-
+        
         foreach ($tours as $tour) {
             $rentalSpaceGeneral = $this->rentalSpaceGeneralRepository->findById($tour->getRentalSpaceId());
             if (!$rentalSpaceGeneral) {

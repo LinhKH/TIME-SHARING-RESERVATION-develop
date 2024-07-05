@@ -175,6 +175,7 @@ class RentalSpaceGeneralRepository implements IRentalSpaceGeneralRepository
     public function findById(RentalSpaceId $rentalSpaceId): ?RentalSpaceGeneral
     {
         // TODO: Implement findById() method.
+        ini_set('max_execution_time', 180); // 3 minutes
         $space = ModelRentalSpace::find($rentalSpaceId->getValue());
         $entities = ModelRentalSpaceEav::where('namespace', $rentalSpaceId->getValue())->where('type_step', 'general')->get()->toArray();
         if (!$entities) {
@@ -184,7 +185,7 @@ class RentalSpaceGeneralRepository implements IRentalSpaceGeneralRepository
         foreach ($entities as $entity) {
             $dataRentalSpaceEav[$entity['attribute']] =  $entity['value'];
         }
-        dd($dataRentalSpaceEav);
+        // dd((isset($dataRentalSpaceEav['generalBasicSpacePurposeOfUses'])) ? json_decode($dataRentalSpaceEav['generalBasicSpacePurposeOfUses'],true) : []);
 
         return new RentalSpaceGeneral(
             $space->organization_id,
@@ -192,7 +193,7 @@ class RentalSpaceGeneralRepository implements IRentalSpaceGeneralRepository
             $dataRentalSpaceEav['generalBasicSpaceNameKana'] ?? null,
             $dataRentalSpaceEav['generalBasicSpaceOverview'] ?? null,
             $dataRentalSpaceEav['generalBasicSpaceIntroduction'],
-            (isset($dataRentalSpaceEav['generalBasicSpacePurposeOfUses'])) ? json_decode($dataRentalSpaceEav['generalBasicSpacePurposeOfUses']) : [],
+            (isset($dataRentalSpaceEav['generalBasicSpacePurposeOfUses'])) ? json_decode($dataRentalSpaceEav['generalBasicSpacePurposeOfUses'],true) : [],
             $dataRentalSpaceEav['generalLocationPostCode'],
             $dataRentalSpaceEav['generalLocationPrefecture'],
             $dataRentalSpaceEav['generalLocationMunicipality'],
