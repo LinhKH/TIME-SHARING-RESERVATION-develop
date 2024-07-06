@@ -3,7 +3,7 @@
         <HeaderSpaces v-if="actionType === ACTIONS_TYPE.CREATE"
             :title="$t('spaces_general_page.space_information_input')"
             :textHelp="$t('spaces_general_page.register_space_information')" />
-        <div class="mt-3 border border-[#ddd] border-solid w-full">
+        <div class="mt-3 border border-[#fce1e1] border-solid w-full">
             <FormKit type="group" v-model="formData">
                 <BasicInformation :messagesFormError="messagesFormError" :modelValue="formData"
                     @updateBasicInfo="handleUpdateBasicInfo" :idGeneral="id" :statusValue="statusValue" />
@@ -118,8 +118,7 @@ export default {
             formData.general_location_access_instruction_ja = data.general_location_access_instruction_ja;
             formData.general_space_information_minimum_capacity = data.general_space_information_minimum_capacity;
             formData.general_space_information_maximum_capacity = data.general_space_information_maximum_capacity;
-            formData.general_space_information_spaciousness_description_ja =
-                data.general_space_information_spaciousness_description_ja;
+            formData.general_space_information_spaciousness_description_ja = data.general_space_information_spaciousness_description_ja;
             formData.general_space_information_plan_ja = data.general_space_information_plan_ja;
             formData.general_space_information_movie = data.general_space_information_movie;
             formData.general_space_information_terms_of_service = data.general_space_information_terms_of_service;
@@ -167,6 +166,24 @@ export default {
             }
         };
 
+        const setDataLocation = async () => {
+            await fetch(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${formData.general_location_post_code}&key=AIzaSyBNYj1s4bkyi_o6Kh94nxXZOnHJEEhfUHw`
+            )
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.results.length) {
+                        const checkJP = data.results.find((c) =>
+                            c.address_components[c.address_components.length - 1].short_name.includes("JP")
+                        );
+                        if (checkJP) {
+                            params.general_location_latitude = checkJP.geometry.location.lat;
+                            params.general_location_longitude = checkJP.geometry.location.lng;
+                        }
+                    }
+                });
+        };
+
         const handleSubmit = async () => {
             if (isCancellationErr.value) return;
             const general_space_information_cancellation_fee_rules = formData.general_space_information_cancellation_fee_rules.map((cancellation) => {
@@ -200,8 +217,7 @@ export default {
                 general_location_access_instruction_ja: formData.general_location_access_instruction_ja,
                 general_space_information_minimum_capacity: formData.general_space_information_minimum_capacity,
                 general_space_information_maximum_capacity: formData.general_space_information_maximum_capacity,
-                general_space_information_spaciousness_description_ja:
-                    formData.general_space_information_spaciousness_description_ja,
+                general_space_information_spaciousness_description_ja: formData.general_space_information_spaciousness_description_ja,
                 general_space_information_plan_ja: formData.general_space_information_plan_ja,
                 general_space_information_movie: formData.general_space_information_movie,
                 general_space_information_terms_of_service: formData.general_space_information_terms_of_service,
@@ -212,23 +228,7 @@ export default {
                 general_contact_phone_number_ja: formData.general_contact_phone_number_ja,
                 general_contact_email: formData.general_contact_email,
             };
-            const setDataLocation = async () => {
-                await fetch(
-                    `https://maps.googleapis.com/maps/api/geocode/json?address=${formData.general_location_post_code}&key=AIzaSyBNYj1s4bkyi_o6Kh94nxXZOnHJEEhfUHw`
-                )
-                    .then((res) => res.json())
-                    .then((data) => {
-                        if (data.results.length) {
-                            const checkJP = data.results.find((c) =>
-                                c.address_components[c.address_components.length - 1].short_name.includes("JP")
-                            );
-                            if (checkJP) {
-                                params.general_location_latitude = checkJP.geometry.location.lat;
-                                params.general_location_longitude = checkJP.geometry.location.lng;
-                            }
-                        }
-                    });
-            };
+           
             try {
                 store.state[MODULE_STORE.COMMON.NAME].isLoadingPage = true;
                 await setDataLocation();

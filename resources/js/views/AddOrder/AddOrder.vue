@@ -62,6 +62,7 @@ export default {
         };
         initData();
         onUnmounted(() => {
+            console.log('onUnmounted');
             store.commit(
                 `${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.MUTATIONS.SET_STEP_SPACE_CREATED}`,
                 null
