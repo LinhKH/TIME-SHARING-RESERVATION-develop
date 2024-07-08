@@ -202,10 +202,10 @@ class RentalSpaceEquipmentInformationRepository implements IRentalSpaceEquipment
         );
 
         $rentalSpaceEquipmentGeneralInformation = new RentalSpaceEquipmentGeneralInformation(
-            $dataRentalSpaceEav['equipmentInformation__wifi'],
-            $dataRentalSpaceEav['equipmentInformation__audioSpeaker'],
-            $dataRentalSpaceEav['equipmentInformation__monitor'],
-            $dataRentalSpaceEav['equipmentInformation__toilet'],
+            $dataRentalSpaceEav['equipmentInformation__wifi'] ?? '',
+            $dataRentalSpaceEav['equipmentInformation__audioSpeaker'] ?? '',
+            $dataRentalSpaceEav['equipmentInformation__monitor'] ?? '',
+            $dataRentalSpaceEav['equipmentInformation__toilet'] ?? '',
             $dataRentalSpaceEav['equipmentInformation__kitchen'] ?? null,
             $dataRentalSpaceEav['equipmentInformation__refrigerator'] ?? null,
             $dataRentalSpaceEav['equipmentInformation__freezer'] ?? null,

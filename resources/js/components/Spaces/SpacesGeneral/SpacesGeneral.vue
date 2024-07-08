@@ -76,9 +76,7 @@ export default {
         const { t } = useI18n();
         const idSpaceCreated = route.params.id || route.query.id;
         const statusValue = ref();
-        const isCreated =
-            store.getters[`${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.GETTERS.GET_STEP_SPACE_CREATED}`] >
-            STEP_CREATE_SPACE.GENERAL;
+        const isCreated = store.getters[`${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.GETTERS.GET_STEP_SPACE_CREATED}`] > STEP_CREATE_SPACE.GENERAL;
         const formData = reactive({
             general_basic_space_name_ja: null,
             general_basic_space_name_kana: null,
@@ -173,9 +171,7 @@ export default {
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.results.length) {
-                        const checkJP = data.results.find((c) =>
-                            c.address_components[c.address_components.length - 1].short_name.includes("JP")
-                        );
+                        const checkJP = data.results.find((c) => c.address_components[c.address_components.length - 1].short_name.includes("JP") );
                         if (checkJP) {
                             params.general_location_latitude = checkJP.geometry.location.lat;
                             params.general_location_longitude = checkJP.geometry.location.lng;
@@ -191,8 +187,7 @@ export default {
                         start_day: cancellation.startDay,
                         end_day: cancellation.endDay,
                         percentage: cancellation.percentage,
-                        is_coupon_applicable:
-                            cancellation.isCouponApplicable && cancellation.isCouponApplicable != "off" ? "on" : "off",
+                        is_coupon_applicable: cancellation.isCouponApplicable && cancellation.isCouponApplicable != "off" ? "on" : "off",
                     };
                 });
 

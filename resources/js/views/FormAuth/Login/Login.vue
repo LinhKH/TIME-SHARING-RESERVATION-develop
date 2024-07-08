@@ -17,11 +17,11 @@
                     <div>
                         <div class="flex flex-col gap-[5px]">
                             <div class="h-[34px]">
-                                <Field name="email" type="text" :placeholder="$t(`form_auth.placeholder.email`)"
+                                <Field name="email" type="text" :placeholder="$t(`form_auth.placeholder.email`)" value="vision.team1.tcom+1@gmail.com"
                                     class="w-full h-full flex-1 focus:outline-none rounded-[2px] text-[#555555] text-[14px] block px-[12px] py-[6px] border border-[#ccc] focus:border-[#66afe9] shadow-[0_0_2px_0px_#acacac] focus:shadow-[0_0_5px_0_#66afe9]" />
                             </div>
                             <div class="h-[34px]">
-                                <Field name="password" type="password"
+                                <Field name="password" type="password" value="password"
                                     :placeholder="$t(`form_auth.placeholder.password`)"
                                     class="w-full h-full flex-1 focus:outline-none rounded-[2px] text-[#555555] text-[14px] block px-[12px] py-[6px] border border-[#ccc] focus:border-[#66afe9] shadow-[0_0_2px_0px_#acacac] focus:shadow-[0_0_5px_0_#66afe9]" />
                             </div>

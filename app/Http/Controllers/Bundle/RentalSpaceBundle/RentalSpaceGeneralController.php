@@ -108,8 +108,8 @@ class RentalSpaceGeneralController extends Controller
         if (!empty($request->general_basic_space_purpose_of_uses)) {
             foreach ($request->general_basic_space_purpose_of_uses as $generalBasicSpacePurposeOfUseRequest) {
                 $generalBasicSpacePurposeOfUsesCommand[] = new RentalSpaceGeneralPurposeOfUseCommand(
-                    $generalBasicSpacePurposeOfUseRequest['main_category'],
-                    $generalBasicSpacePurposeOfUseRequest['sub_category']?? '',
+                    $generalBasicSpacePurposeOfUseRequest['main_category'] ?? '',
+                    $generalBasicSpacePurposeOfUseRequest['sub_category'] ?? '',
                     $generalBasicSpacePurposeOfUseRequest['title_category'] ?? null
                 );
             }
@@ -277,8 +277,8 @@ class RentalSpaceGeneralController extends Controller
         if (!empty($request->general_basic_space_purpose_of_uses)) {
             foreach ($request->general_basic_space_purpose_of_uses as $generalBasicSpacePurposeOfUseRequest) {
                 $generalBasicSpacePurposeOfUsesCommand[] = new RentalSpaceGeneralPurposeOfUseCommand(
-                    $generalBasicSpacePurposeOfUseRequest['main_category'],
-                    $generalBasicSpacePurposeOfUseRequest['sub_category'],
+                    $generalBasicSpacePurposeOfUseRequest['main_category'] ?? '',
+                    $generalBasicSpacePurposeOfUseRequest['sub_category'] ?? '',
                     $generalBasicSpacePurposeOfUseRequest['title_category'] ?? null
                 );
             }

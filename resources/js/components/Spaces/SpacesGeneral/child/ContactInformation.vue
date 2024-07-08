@@ -94,7 +94,7 @@ import JapanIcon from "@/assets/images/japan.png";
 import LabelRequired from "@/components/LabelRequired";
 import LayoutForm from "@/components/Layouts/LayoutForm.vue";
 import MessagesFormError from "@/components/MessagesForm";
-import { ROUTER_PATH, MODULE_STORE } from "@/const";
+import { MODULE_STORE } from "@/const";
 import { useStore } from "vuex";
 import { ref, inject } from "vue";
 import { getUserProfileApi } from "@/api";

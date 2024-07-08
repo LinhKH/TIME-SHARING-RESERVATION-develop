@@ -76,7 +76,7 @@
                         <select
                             class="w-[420px] h-9 px-2 bg-white border border-solid border-[#ddd] rounded outline-none focus:shadow-lg focus:shadow-cyan-500/50 focus:border-cyan-500/50"
                             v-model="formData.general_basic_space_purpose_of_uses[index].main_category"
-                            @input="handleChange($event, index, formData.general_basic_space_purpose_of_uses[index].main_category)">
+                            @change="handleChange($event, index, formData.general_basic_space_purpose_of_uses[index].main_category)">
                             <option v-for="(itemMainCategory, indexMainCategory) in listMainCategoryPurposeOfUse"
                                 :key="indexMainCategory" :value="itemMainCategory.value"
                                 :selected="formData.general_basic_space_purpose_of_uses[index].main_category === itemMainCategory.value">
@@ -254,8 +254,9 @@ export default {
             watch(formData, () => {
                 context.emit("updateBasicInfo", formData);
             });
+            handleGetDetailsPurposeOfUse();
         });
-        await handleGetDetailsPurposeOfUse();
+
         return {
             handleIncreasePurpose,
             ebbNumberPurpose,
@@ -267,7 +268,6 @@ export default {
             isShowBtnAddDelete,
             getListPurposeOfUseByCategoryFromApi,
             listMainCategoryPurposeOfUse,
-            handleGetDetailsPurposeOfUse,
         };
     },
 };

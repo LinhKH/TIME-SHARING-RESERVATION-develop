@@ -26,16 +26,16 @@ export default {
         const idSpace = route.params.id || route.query.id;
         const toast = inject("$toast");
         const maxPlan = ref(0);
+        const stepSpaceCreated = ref(null);
         const { t } = useI18n();
         const isLoading = ref(true);
         const initData = async () => {
             try {
                 store.state[MODULE_STORE.COMMON.NAME].isLoadingPage = true;
+                stepSpaceCreated.value = store.getters[`${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.GETTERS.GET_STEP_SPACE_CREATED}`];
                 if (
                     idSpace &&
-                    !store.getters[
-                    `${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.GETTERS.GET_STEP_SPACE_CREATED}`
-                    ]
+                    !stepSpaceCreated.value
                 ) {
                     const response = await getCurrentStep(idSpace);
                     if (response) {
@@ -63,13 +63,10 @@ export default {
         initData();
         onUnmounted(() => {
             console.log('onUnmounted');
-            store.commit(
-                `${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.MUTATIONS.SET_STEP_SPACE_CREATED}`,
-                null
-            );
+            store.commit(`${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.MUTATIONS.SET_STEP_SPACE_CREATED}`, null);
             store.commit(`${MODULE_STORE.RENTAL_SPACES.NAME}/${MODULE_STORE.RENTAL_SPACES.MUTATIONS.SET_ID_PLAN}`, null);
         });
-        return { isLoading, maxPlan };
+        return { isLoading, maxPlan, idSpace };
     },
 };
 </script>

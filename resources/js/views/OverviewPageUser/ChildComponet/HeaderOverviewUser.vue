@@ -29,12 +29,12 @@
                         </ul>
                     </div>
                     <div class="w-full h-full flex items-center">
-                        <router-link :to="linkRoute.loginLink">
+                        <router-link :to="linkRoute.loginLink" v-if="!isShowLayout">
                             <ButtonUser class="my-[15px] mr-[10px]"
                                 :text="$t(`overview_page_user.header.text_button.button1`)" bg="bg-[#297fca]"
                                 icon="fa fa-arrow-right" />
                         </router-link>
-                        <router-link :to="linkRoute.registerLink">
+                        <router-link :to="linkRoute.registerLink" v-if="!isShowLayout">
                             <ButtonUser class="my-[15px] mr-[10px]"
                                 :text="$t(`overview_page_user.header.text_button.button2`)" bg="bg-[#297fca]"
                                 icon="fa fa-user-plus" />
@@ -54,12 +54,16 @@ import logoTimeSharing from "@/assets/images/time_sharing_logo.png";
 import bestRate from "@/assets/images/overviewPageUser/bestrateicon_header.svg";
 import jpxPrimeTokyo from "@/assets/images/overviewPageUser/jpx_prime_tokyo.svg";
 import ButtonUser from "@/views/OverviewPageUser/ChildComponet/ButtonUser.vue";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { MODULE_STORE } from "@/const";
 export default {
     name: "HeaderOverviewUser",
     components: {
         ButtonUser,
     },
     setup() {
+        const store = useStore();
         const itemSearch = [
             {
                 id: 1,
@@ -78,12 +82,14 @@ export default {
             loginLink: `${ROUTER_PATH.LOGIN_CUSTOMER}`,
             registerLink: `${ROUTER_PATH.REGISTER_CUSTOMER}`,
         };
+        const isShowLayout = computed(() => store.state[MODULE_STORE.AUTH.NAME].isAuthenticated);
         return {
             logoTimeSharing,
             bestRate,
             jpxPrimeTokyo,
             itemSearch,
             linkRoute,
+            isShowLayout
         };
     },
 };

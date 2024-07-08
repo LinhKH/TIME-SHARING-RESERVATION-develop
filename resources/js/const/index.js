@@ -462,7 +462,7 @@ export const OPTIONS_MAIN_CATEGORY = [
 ];
 
 export const OPTIONS_SUB_CATEGORY = {
-    "use-purpose-category-68": [
+    "use-purpose-category-199": [
         {
             label: "-- サブカテゴリーを選択してください --",
             value: "",
@@ -778,7 +778,7 @@ export const OPTIONS_SUB_CATEGORY = {
             value: "",
         },
     ],
-    "use-purpose-category-137": [
+    "use-purpose-category-190": [
         {
             label: "-- サブカテゴリーを選択してください --",
             value: "",
